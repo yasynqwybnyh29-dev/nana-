@@ -1,0 +1,1104 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>دنیای ما</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap" rel="stylesheet">
+<style>[hidden]{display:none!important}
+
+/* Layout: one narrow phone-first column; splash, a home menu with four tiles, one panel per section. Palette: white, blush pink, sky blue. */
+:root{
+  --g1:#ffffff;--g2:#ffeaf2;--g3:#dff1ff;
+  --card:#ffffffcc;--item:#ffffff;--field:#ffffff;--line:#f0d5e0;
+  --pink:#f2578a;--sky:#2488d8;--text:#2f3b55;--muted:#677790;--btn-text:#ffffff;--danger:#d63a5f;
+  --shadow:#f2578a26;--track:#2f3b551a;
+  --font:'Vazirmatn',Tahoma,'Segoe UI',sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --g1:#1b2135;--g2:#2a2038;--g3:#1b2c45;
+  --card:#2a3149cc;--item:#323a57;--field:#20263b;--line:#4a5578;
+  --pink:#ff86ae;--sky:#6cc0ff;--text:#eef3fb;--muted:#a9b6cd;--btn-text:#1b2135;--danger:#ff7a99;
+  --shadow:#00000040;--track:#ffffff22;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --g1:#1b2135;--g2:#2a2038;--g3:#1b2c45;
+  --card:#2a3149cc;--item:#323a57;--field:#20263b;--line:#4a5578;
+  --pink:#ff86ae;--sky:#6cc0ff;--text:#eef3fb;--muted:#a9b6cd;--btn-text:#1b2135;--danger:#ff7a99;
+  --shadow:#00000040;--track:#ffffff22;color-scheme:dark}
+
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100%}
+body{font-family:var(--font);color:var(--text);background-color:var(--g1);
+  background-image:linear-gradient(165deg,var(--g1) 0%,var(--g2) 48%,var(--g3) 100%);background-attachment:fixed;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:22px 60px;line-height:1.7}
+.wrap{max-width:560px;margin:0 auto}
+#loader{position:fixed;inset:0;z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background-color:var(--g1);background-image:linear-gradient(165deg,var(--g1) 0%,var(--g2) 48%,var(--g3) 100%);transition:opacity .6s,visibility .6s}
+#loader.hide{opacity:0;visibility:hidden}
+.heart{font-size:64px;animation:beat 1s infinite}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
+.bar{width:180px;height:6px;border-radius:9px;background:var(--track);margin-top:22px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--sky));animation:load 2s forwards}
+@keyframes load{to{width:100%}}
+@media (prefers-reduced-motion:reduce){.heart{animation:none}.bar i{animation-duration:.01s}}
+h1{font-size:26px;font-weight:800;text-align:center;margin:18px 0 4px;text-wrap:balance}
+.sub{text-align:center;color:var(--muted);font-size:14px;margin-bottom:24px}
+.menu{display:grid;gap:14px}
+.tile{background:var(--card);border-radius:22px;padding:20px;display:flex;align-items:center;gap:16px;cursor:pointer;
+  box-shadow:0 8px 24px var(--shadow);transition:transform .15s;border:0;width:100%;font:inherit;color:inherit;text-align:right}
+.tile:active{transform:scale(.97)}
+.tile .ic{font-size:36px}
+.tile b{display:block;font-size:17px}
+.tile span{font-size:13px;color:var(--muted)}
+.back{background:var(--card);border:0;border-radius:14px;padding:8px 14px;font:inherit;cursor:pointer;margin-bottom:10px;color:var(--text)}
+.box{background:var(--card);border-radius:22px;padding:18px;margin-bottom:14px;box-shadow:0 8px 24px var(--shadow)}
+.box h2{font-size:17px;margin-bottom:12px}
+.row{margin-bottom:14px}
+.row label{display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px}
+input[type=range]{width:100%;accent-color:var(--pink)}
+.meter{height:12px;border-radius:9px;background:var(--track);overflow:hidden}
+.meter i{display:block;height:100%;border-radius:9px;transition:width .5s}
+.big{font-size:54px;text-align:center}
+.mood{text-align:center;font-weight:600;margin:4px 0 10px}
+input[type=text],input[type=time],input[type=url],textarea{font:inherit;color:var(--text);border:1.5px solid var(--line);
+  background:var(--field);border-radius:12px;padding:10px;width:100%;min-width:0}
+input:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+.btn{background:linear-gradient(90deg,var(--pink),var(--sky));color:var(--btn-text);border:0;border-radius:14px;padding:11px 18px;font:inherit;font-weight:600;cursor:pointer}
+.x{background:none;border:0;font:inherit;font-size:18px;cursor:pointer;opacity:.7;color:var(--text);padding:4px}
+.x.sure{color:var(--danger);font-size:13px;font-weight:600;opacity:1}
+.item{display:flex;align-items:center;gap:10px;padding:12px;border-radius:14px;background:var(--item);margin-bottom:8px}
+.item .t{flex:1;min-width:0;overflow-wrap:anywhere}
+.item .t small{display:block;color:var(--muted);font-size:12px}
+.time{font-weight:800;color:var(--sky);font-size:13px;white-space:nowrap;direction:ltr;text-align:center;font-variant-numeric:tabular-nums}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.grid2 small{color:var(--muted)}
+.stamp{font-size:12px;color:var(--muted);text-align:center;margin-top:8px}
+.msg{color:var(--danger);font-size:13px;min-height:20px;margin-bottom:6px}
+a{color:var(--sky);text-decoration:none;font-weight:600}
+
+/* farm game */
+.gbox{padding:12px}
+.hud{display:flex;align-items:center;gap:12px;margin-bottom:8px;font-weight:600;font-size:14px;flex-wrap:wrap}
+.hud .en{flex:1;min-width:80px;height:10px;border-radius:9px;background:var(--track);overflow:hidden}
+.hud .en i{display:block;height:100%;width:100%;border-radius:9px;background:linear-gradient(90deg,var(--pink),var(--sky));transition:width .25s}
+#gc{display:block;width:100%;height:auto;aspect-ratio:320/224;image-rendering:pixelated;border-radius:14px;background:#bfe8ae}
+.gmsg{min-height:26px;margin-top:8px;font-size:14px;color:var(--text);text-align:center}
+.inv{display:flex;gap:14px;justify-content:center;font-size:13px;color:var(--muted);margin-bottom:8px;flex-wrap:wrap}
+.tools{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-bottom:12px}
+.tool{border:1.5px solid var(--line);background:var(--item);color:var(--text);border-radius:12px;padding:6px 2px;font:inherit;font-size:11px;cursor:pointer;line-height:1.4;text-align:center}
+.tool small{display:block;color:var(--muted);font-size:11px}
+.tool.on{border-color:var(--pink);box-shadow:0 0 0 2px var(--pink) inset}
+.pad{display:flex;align-items:center;justify-content:space-between;gap:16px;direction:ltr}
+.dpad{display:grid;grid-template-columns:repeat(3,52px);grid-template-rows:repeat(3,52px);gap:4px;grid-template-areas:". u ." "l . r" ". d ."}
+.dpad button,.act{touch-action:none;user-select:none;-webkit-user-select:none;border:0;border-radius:14px;background:var(--item);color:var(--text);font:inherit;font-size:18px;cursor:pointer;box-shadow:0 3px 10px var(--shadow)}
+.dpad button:active,.act:active{background:var(--line)}
+.act{width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--sky));color:var(--btn-text);font-weight:800;font-size:16px;direction:rtl}
+.hint{font-size:12px;color:var(--muted);text-align:center;margin-top:12px}
+
+/* roles and login */
+[data-role="him"] .only-her,[data-role="her"] .only-him{display:none!important}
+#login{max-width:420px;margin:12vh auto 0}
+#login input[type=password]{text-align:center;direction:ltr;letter-spacing:.12em;margin:10px 0 6px}
+.chip{display:flex;gap:10px;align-items:center;justify-content:center;background:var(--card);border-radius:16px;padding:10px 14px;margin:-8px 0 18px;font-size:14px;box-shadow:0 8px 24px var(--shadow)}
+.foot{display:flex;justify-content:space-between;align-items:center;margin-top:22px;font-size:12px;color:var(--muted)}
+.foot .x{font-size:13px;color:var(--muted)}
+audio{width:100%;height:38px;margin-top:8px;display:block}
+.file{display:block;border:1.5px dashed var(--line);border-radius:12px;padding:10px;margin-bottom:8px;font-size:13px;color:var(--muted);cursor:pointer}
+.file input{display:block;margin-top:6px;max-width:100%;font:inherit;color:var(--text)}
+.btn:disabled{opacity:.6;cursor:default}
+
+/* game v2: fixed, non-scrolling layout */
+body.gaming{position:fixed;inset:0;overflow:hidden;padding-block:8px;background-attachment:scroll}
+body.gaming .wrap,body.gaming #app{height:100%}
+#farm:not([hidden]){display:flex;flex-direction:column;gap:6px;height:100%}
+#farm .back{align-self:flex-start;margin:0;padding:6px 12px}
+.gbox{flex:1;min-height:0;display:flex;flex-direction:column;gap:6px;position:relative;margin:0;padding:10px}
+.gbox .hud{margin:0}
+.stage{flex:1;min-height:0;container-type:size;display:flex;align-items:center;justify-content:center}
+#gc{width:min(100cqw,calc(100cqh*14/17));height:min(calc(100cqw*17/14),100cqh);aspect-ratio:auto;flex:none}
+.gbox .inv{margin:0;min-height:18px}
+.gbox .gmsg{margin:0;min-height:22px;font-size:13px;line-height:1.5}
+.tools{display:flex;grid-template-columns:none;gap:6px;overflow-x:auto;margin:0;padding-bottom:2px;scrollbar-width:none}
+.tools::-webkit-scrollbar{display:none}
+.tool{flex:0 0 auto;min-width:62px}
+.pad{gap:12px}
+.dpad{grid-template-columns:repeat(3,44px);grid-template-rows:repeat(3,40px);gap:3px}
+.act{width:84px;height:84px}
+.btn.sm{padding:6px 12px;font-size:12px;white-space:nowrap}
+.btn.ghost{background:var(--item);color:var(--text);border:1.5px solid var(--line)}
+.pill{background:var(--track);border-radius:99px;padding:3px 10px;font-size:12px;color:var(--muted);white-space:nowrap}
+.shop{position:absolute;inset:0;background:#0000004d;border-radius:22px;display:flex;align-items:flex-end;justify-content:center;z-index:5}
+.shop-card{background:var(--g1);width:100%;max-height:82%;overflow-y:auto;border-radius:22px;padding:14px;touch-action:pan-y}
+.shop-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.shop-head b{flex:1;font-size:17px}
+.tabs{display:flex;gap:6px;margin-bottom:10px}
+.tabs button{flex:1;border:1.5px solid var(--line);background:var(--item);color:var(--text);border-radius:12px;padding:6px;font:inherit;font-size:13px;cursor:pointer}
+.tabs button.on{border-color:var(--pink);box-shadow:0 0 0 2px var(--pink) inset}
+</style>
+</head>
+<body>
+
+<div id="loader"><div class="heart">🌸</div><p style="margin-top:14px;font-weight:600">در حال بارگذاری...</p><div class="bar"><i></i></div></div>
+
+<div class="wrap" dir="rtl" lang="fa">
+
+<section id="login" hidden>
+  <h1>دنیای ما</h1>
+  <div class="box">
+    <div id="loginOnline">
+      <p class="sub" style="margin-bottom:6px">کد ورودت رو وارد کن</p>
+      <input type="password" id="pinIn" autocomplete="current-password" placeholder="کد ورود">
+      <div class="msg" id="loginMsg"></div>
+      <button class="btn" style="width:100%" id="loginBtn">ورود</button>
+    </div>
+    <div id="loginDemo" hidden>
+      <p class="sub" style="margin-bottom:6px">حالت آزمایشی: هنوز به سرور وصل نیست و اطلاعات فقط روی همین مرورگر می‌مونه. ببین هر کدوم از دو نقش چی می‌بینه.</p>
+      <div class="grid2">
+        <button class="btn" data-demo="her">ورود به‌عنوان نانا</button>
+        <button class="btn" data-demo="him">ورود به‌عنوان خودم</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="app" hidden>
+
+<section id="home">
+  <h1>دنیای ما</h1>
+  <p class="sub" id="hello">سلام نانا</p>
+  <div class="chip only-him" id="homeChip"></div>
+  <div class="menu">
+    <button class="tile" onclick="go('farm')"><div class="ic">🌱</div><div><b id="tFarm">مزرعه</b><span id="tFarmS">بکار، برداشت کن، ماهی بگیر</span></div></button>
+    <button class="tile" onclick="go('vibe')"><div class="ic">🌈</div><div><b id="tVibe">وضعیت</b><span id="tVibeS">حال و انرژی امروز</span></div></button>
+    <button class="tile" onclick="go('plan')"><div class="ic">🗓️</div><div><b id="tPlan">برنامه‌ی امروز</b><span id="tPlanS">کلاس‌ها و کارها به ترتیب ساعت</span></div></button>
+    <button class="tile" onclick="go('music')"><div class="ic">🎧</div><div><b>پلی‌لیست</b><span>آهنگ‌های مشترک</span></div></button>
+  </div>
+  <div class="foot"><span id="net"></span><button class="x" id="logoutBtn">خروج</button></div>
+</section>
+
+<section id="farm" hidden>
+  <button class="back" onclick="go('home')">→ برگشت</button>
+  <div class="box gbox">
+    <div class="hud"><span id="hDay"></span><span id="hCoin"></span><span class="en" title="انرژی"><i id="hEn"></i></span></div>
+    <div class="stage"><canvas id="gc" aria-label="مزرعه"></canvas></div>
+    <div class="inv" id="hInv"></div>
+    <div class="gmsg" id="hMsg" aria-live="polite"></div>
+    <div class="tools only-her" id="tools"></div>
+    <div class="pad">
+      <div class="dpad">
+        <button data-d="u" style="grid-area:u" aria-label="بالا">▲</button>
+        <button data-d="l" style="grid-area:l" aria-label="چپ">◀</button>
+        <button data-d="r" style="grid-area:r" aria-label="راست">▶</button>
+        <button data-d="d" style="grid-area:d" aria-label="پایین">▼</button>
+      </div>
+      <button class="act" id="actBtn">کار کن</button>
+    </div>
+    <div class="shop" id="shop" hidden>
+      <div class="shop-card">
+        <div class="shop-head"><b>فروشگاه</b><span id="shopCoin"></span><button class="x" id="shopClose" aria-label="بستن">✕</button></div>
+        <div class="tabs"><button data-tab="seeds" class="on">بذر</button><button data-tab="decor">دکور</button><button data-tab="look">ظاهر</button></div>
+        <div id="shopList"></div>
+        <div class="msg" id="shopMsg" style="margin:6px 0 0"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="vibe" hidden>
+  <button class="back" onclick="go('home')">→ برگشت</button>
+  <div class="box">
+    <div class="big" id="vEmoji">🙂</div>
+    <div class="mood" id="vText"></div>
+    <div id="vMeters"></div>
+    <div class="stamp" id="vStamp"></div>
+  </div>
+  <div class="box only-her">
+    <h2>به‌روزرسانی وضعیت</h2>
+    <div id="vSliders"></div>
+    <textarea id="vNote" rows="2" placeholder="یه توضیح کوتاه (اختیاری)"></textarea>
+    <button class="btn" style="margin-top:10px;width:100%" id="vSave">ذخیره</button>
+  </div>
+</section>
+
+<section id="plan" hidden>
+  <button class="back" onclick="go('home')">→ برگشت</button>
+  <div class="box"><h2 id="planH">برنامه‌ی امروز</h2><div id="planList"></div></div>
+  <div class="box only-her">
+    <h2>افزودن یا ویرایش</h2>
+    <input type="text" id="pTitle" placeholder="عنوان (مثلاً کلاس زبان)" style="margin-bottom:8px">
+    <div class="grid2"><div><small>از ساعت</small><input type="time" id="pFrom"></div><div><small>تا ساعت</small><input type="time" id="pTo"></div></div>
+    <input type="text" id="pNote" placeholder="توضیح (اختیاری)" style="margin-bottom:10px">
+    <div class="msg" id="pMsg"></div>
+    <button class="btn" style="width:100%" id="pBtn">افزودن</button>
+  </div>
+</section>
+
+<section id="music" hidden>
+  <button class="back" onclick="go('home')">→ برگشت</button>
+  <div class="box"><h2>پلی‌لیست</h2><div id="songList"></div></div>
+  <div class="box">
+    <h2>آهنگ جدید</h2>
+    <input type="text" id="sTitle" placeholder="اسم آهنگ" style="margin-bottom:8px">
+    <input type="text" id="sArtist" placeholder="خواننده" style="margin-bottom:8px">
+    <input type="url" id="sLink" placeholder="لینک (اسپاتیفای، یوتیوب، ...) اختیاری" style="margin-bottom:8px;direction:ltr">
+    <input type="text" id="sNote" placeholder="توضیح (اختیاری)" style="margin-bottom:8px">
+    <label class="file" for="sFile"><span>آپلود فایل آهنگ (اختیاری)</span><input type="file" id="sFile" accept="audio/*"></label>
+    <div class="msg" id="sMsg"></div>
+    <button class="btn" style="width:100%" id="sAdd">افزودن</button>
+  </div>
+</section>
+
+</div>
+</div>
+
+<script>
+/* ===== Server settings: fill these in after creating the Supabase project (see راهنما). Leave empty for local demo mode. ===== */
+const CFG={url:'https://ncbcpppwhgkgbozmuogb.supabase.co',anon:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5jYmNwcHB3aGdrZ2Jvem11b2diIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMyNDM0OTgsImV4cCI6MjEwODgxOTQ5OH0.cTP-sdHPwiix_Jlj2JvlTMtF-bys2tlYsENOpJoVHW4'};
+const ONLINE=!!(CFG.url&&CFG.anon);
+
+const $=id=>document.getElementById(id);
+const load=(k,d)=>{try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}};
+const save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fa=n=>Number(n).toLocaleString('fa-IR');
+const SECTIONS=['home','farm','vibe','plan','music'];
+let ROLE=null,PIN=null;
+
+setTimeout(()=>$('loader').classList.add('hide'),1600);
+
+function show(id){SECTIONS.forEach(s=>$(s).hidden=s!==id);document.body.classList.toggle('gaming',id==='farm');scrollTo(0,0)}
+function go(id){location.hash=id==='home'?'':id;show(id)}
+addEventListener('hashchange',()=>{if(!ROLE)return;const h=location.hash.slice(1);show(SECTIONS.includes(h)?h:'home')});
+
+/* ---------- server ---------- */
+const hdr=()=>{const h={apikey:CFG.anon,'Content-Type':'application/json'};if(CFG.anon.startsWith('eyJ'))h.Authorization='Bearer '+CFG.anon;return h};
+async function rpc(fn,args){
+  const r=await fetch(CFG.url.replace(/\/$/,'')+'/rest/v1/rpc/'+fn,{method:'POST',headers:hdr(),body:JSON.stringify(args)});
+  if(!r.ok)throw new Error(await r.text());
+  return r.json();
+}
+function setNet(t){const n=$('net');if(n)n.textContent=t||''}
+const pushT={};
+function persist(key,val){
+  save(key,val);
+  if(ONLINE&&ROLE==='her'&&PIN){
+    clearTimeout(pushT[key]);
+    pushT[key]=setTimeout(()=>rpc('set_kv',{p_pin:PIN,p_key:key,p_value:val}).then(()=>setNet('')).catch(()=>setNet('ذخیره روی سرور انجام نشد. اینترنت یا VPN رو چک کن.')),1200);
+  }
+}
+
+/* two-tap delete (confirm() is blocked in some viewers) */
+let pending=null,pendingTimer=null;
+function ask(kind,id){
+  if(pending&&pending.kind===kind&&pending.id===id){pending=null;clearTimeout(pendingTimer);
+    if(kind==='plan'){plan=plan.filter(p=>p.id!==id);persist('plan',plan);renderPlan()}
+    else delSong(id);
+    return}
+  pending={kind,id};clearTimeout(pendingTimer);pendingTimer=setTimeout(()=>{pending=null;renderPlan();renderSongs()},3000);
+  renderPlan();renderSongs();
+}
+const delBtn=(kind,id)=>pending&&pending.kind===kind&&pending.id===id
+  ?`<button class="x sure" onclick="ask('${kind}',${JSON.stringify(id).replace(/"/g,'&quot;')})">حذف؟</button>`
+  :`<button class="x" aria-label="حذف" onclick="ask('${kind}',${JSON.stringify(id).replace(/"/g,'&quot;')})">🗑️</button>`;
+
+/* ---------- VIBE ---------- */
+const VIBES=[
+ {k:'happy',n:'خوشحالی',c:'#ffb703'},
+ {k:'tired',n:'خستگی',c:'#6c8cff'},
+ {k:'angry',n:'عصبانیت',c:'#ef476f'},
+ {k:'love',n:'دلتنگی',c:'#ff5d8f'},
+ {k:'energy',n:'انرژی',c:'#2ec4b6'}
+];
+let vibe=load('vibe',null)||{happy:60,tired:30,angry:5,love:50,energy:50,note:'',at:null};
+function moodOf(v){
+ if(v.angry>=60)return['😤','اعصاب خرد'];
+ if(v.tired>=70)return['😴','خیلی خسته'];
+ if(v.love>=75)return['🥺','دلتنگ'];
+ if(v.happy>=70)return['😄','حال عالی'];
+ if(v.happy>=45)return['🙂','حال خوب'];
+ return['😐','بی‌حوصله'];
+}
+function renderVibe(){
+ const[e,t]=moodOf(vibe);$('vEmoji').textContent=e;$('vText').textContent=t;
+ $('vMeters').innerHTML=VIBES.map(x=>`<div class="row"><label><span>${x.n}</span><b>${fa(vibe[x.k])}٪</b></label><div class="meter"><i style="width:${vibe[x.k]}%;background:${x.c}"></i></div></div>`).join('')+(vibe.note?`<div class="item" style="margin-top:6px">💬 <div class="t">${esc(vibe.note)}</div></div>`:'');
+ $('vStamp').textContent=vibe.at?'آخرین به‌روزرسانی: '+new Date(vibe.at).toLocaleString('fa-IR'):'هنوز به‌روز نشده';
+ if(ROLE==='her'&&!$('vSliders').dataset.ready){
+   $('vSliders').dataset.ready=1;
+   $('vSliders').innerHTML=VIBES.map(x=>`<div class="row"><label for="s_${x.k}"><span>${x.n}</span><b id="o_${x.k}">${fa(vibe[x.k])}٪</b></label><input type="range" min="0" max="100" value="${vibe[x.k]}" id="s_${x.k}" oninput="$('o_${x.k}').textContent=Number(this.value).toLocaleString('fa-IR')+'٪'"></div>`).join('');
+   $('vNote').value=vibe.note||'';
+ }
+}
+$('vSave').addEventListener('click',()=>{
+ VIBES.forEach(x=>vibe[x.k]=+$('s_'+x.k).value);vibe.note=$('vNote').value.trim();vibe.at=Date.now();
+ persist('vibe',vibe);renderVibe();renderHome();scrollTo(0,0);
+});
+
+/* ---------- PLAN ---------- */
+let plan=load('plan',null)||[{id:1,title:'کلاس نمونه',from:'09:00',to:'11:00',note:'این رو ویرایش یا حذف کن'}];
+let editId=null;
+function renderPlan(){
+ const her=ROLE==='her';
+ plan.sort((a,b)=>a.from.localeCompare(b.from));
+ $('planList').innerHTML=plan.length?plan.map(p=>`<div class="item"><div class="time">${p.from}<br>${p.to}</div><div class="t"><b>${esc(p.title)}</b>${p.note?`<small>${esc(p.note)}</small>`:''}</div>${her?`<button class="x" aria-label="ویرایش" onclick="editPlan(${p.id})">✏️</button>${delBtn('plan',p.id)}`:''}</div>`).join(''):'<p class="sub">برنامه‌ای ثبت نشده</p>';
+}
+$('pBtn').addEventListener('click',()=>{
+ const title=$('pTitle').value.trim(),from=$('pFrom').value,to=$('pTo').value;
+ if(!title||!from||!to){$('pMsg').textContent='عنوان و ساعت شروع و پایان رو پر کن.';return}
+ $('pMsg').textContent='';
+ const o={title,from,to,note:$('pNote').value.trim()};
+ if(editId){plan=plan.map(p=>p.id===editId?{...p,...o}:p)}else{plan.push({id:Date.now(),...o})}
+ editId=null;['pTitle','pFrom','pTo','pNote'].forEach(i=>$(i).value='');$('pBtn').textContent='افزودن';
+ persist('plan',plan);renderPlan();
+});
+function editPlan(id){const p=plan.find(x=>x.id===id);if(!p)return;editId=id;$('pTitle').value=p.title;$('pFrom').value=p.from;$('pTo').value=p.to;$('pNote').value=p.note||'';$('pBtn').textContent='ذخیره‌ی تغییر';$('pTitle').focus()}
+
+/* ---------- MUSIC ---------- */
+let songs=(load('songs',null)||[]).filter(s=>s&&(s.by==='her'||s.by==='him'));
+function whoLabel(by){return by===ROLE?'من':(ROLE==='him'?'نانا':'اون')}
+function renderSongs(){
+ $('songList').innerHTML=songs.length?songs.map(s=>`<div class="item"><div style="font-size:22px">${s.by==='her'?'🩷':'🔵'}</div><div class="t"><b>${esc(s.title)}</b><small>${[s.artist,s.note,'از طرف '+whoLabel(s.by)].filter(Boolean).map(esc).join(' · ')}</small>${s.file?`<audio controls preload="none" src="${esc(s.file)}"></audio>`:''}${s.link?`<a href="${esc(s.link)}" target="_blank" rel="noopener">▶ باز کردن لینک</a>`:''}</div>${s.by===ROLE?delBtn('song',s.id):''}</div>`).join(''):'<p class="sub">هنوز آهنگی اضافه نشده</p>';
+}
+function upload(file){
+ return new Promise((res,rej)=>{
+  const ext=((file.name.match(/\.[a-z0-9]{1,5}$/i)||['.mp3'])[0]).toLowerCase();
+  const name=Date.now()+'-'+Math.random().toString(36).slice(2,8)+ext;
+  const x=new XMLHttpRequest();
+  x.open('POST',CFG.url.replace(/\/$/,'')+'/storage/v1/object/songs/'+name);
+  const h=hdr();delete h['Content-Type'];Object.keys(h).forEach(k=>x.setRequestHeader(k,h[k]));
+  x.setRequestHeader('Content-Type',file.type||'audio/mpeg');
+  x.upload.onprogress=e=>{if(e.lengthComputable)$('sMsg').style.color='var(--muted)',$('sMsg').textContent='در حال آپلود... '+fa(Math.round(e.loaded/e.total*100))+'٪'};
+  x.onload=()=>x.status<300?res(CFG.url.replace(/\/$/,'')+'/storage/v1/object/public/songs/'+name):rej(new Error(x.responseText));
+  x.onerror=()=>rej(new Error('network'));
+  x.send(file);
+ });
+}
+$('sAdd').addEventListener('click',async()=>{
+ const msg=$('sMsg');msg.style.color='';
+ const f=$('sFile').files[0];
+ let title=$('sTitle').value.trim();if(!title&&f)title=f.name.replace(/\.[^.]+$/,'');
+ if(!title){msg.textContent='اسم آهنگ رو بنویس یا فایلش رو انتخاب کن.';return}
+ if(f&&!ONLINE){msg.textContent='آپلود فایل وقتی کار می‌کنه که سایت به سرور وصل شده باشه.';return}
+ if(f&&f.size>25*1024*1024){msg.textContent='فایل بیشتر از ۲۵ مگابایته.';return}
+ let link=$('sLink').value.trim();if(link&&!/^https?:\/\//i.test(link))link='https://'+link;
+ const song={id:String(Date.now()),title,artist:$('sArtist').value.trim(),link,note:$('sNote').value.trim(),file:null};
+ $('sAdd').disabled=true;msg.textContent='';
+ try{
+  if(f)song.file=await upload(f);
+  if(ONLINE){await rpc('add_song',{p_pin:PIN,p_song:song});await pull()}
+  else{song.by=ROLE;songs.push(song);save('songs',songs);renderSongs()}
+  ['sTitle','sArtist','sLink','sNote'].forEach(i=>$(i).value='');$('sFile').value='';msg.textContent='';
+ }catch(e){msg.textContent='ذخیره نشد. اینترنت یا VPN رو چک کن و دوباره امتحان کن.'}
+ $('sAdd').disabled=false;
+});
+async function delSong(id){
+ try{
+  if(ONLINE){await rpc('del_song',{p_pin:PIN,p_id:id});await pull()}
+  else{songs=songs.filter(s=>s.id!==id);save('songs',songs);renderSongs()}
+ }catch(e){setNet('حذف نشد. اینترنت یا VPN رو چک کن.')}
+}
+
+/* ---------- HOME ---------- */
+function renderHome(){
+ const him=ROLE==='him';
+ $('hello').textContent=him?'سلام':'سلام نانا';
+ if(him){
+  const sl=window.farmSleepText?window.farmSleepText():'';
+  const[e,t]=moodOf(vibe);
+  $('homeChip').innerHTML=sl?`<span>😴</span><span>نانا الان خوابه · ${sl} تا بیدار شدن</span>`:`<span>${e}</span><span>نانا: ${t}</span>`;
+ }
+}
+function applyRole(){
+ document.body.dataset.role=ROLE;
+ const him=ROLE==='him';
+ $('tFarm').textContent=him?'مزرعه‌ی نانا':'مزرعه';
+ $('tFarmS').textContent=him?'ببین الان چی کار می‌کنه':'بکار، برداشت کن، ماهی بگیر';
+ $('tVibe').textContent=him?'وضعیت نانا':'وضعیت';
+ $('tVibeS').textContent=him?'حال و انرژی الان':'حال و انرژی امروز';
+ $('tPlan').textContent=him?'برنامه‌ی نانا':'برنامه‌ی امروز';
+ $('tPlanS').textContent=him?'کلاس‌ها و کارهای امروز':'کلاس‌ها و کارها به ترتیب ساعت';
+ $('planH').textContent=him?'برنامه‌ی امروز نانا':'برنامه‌ی امروز';
+ $('vSliders').dataset.ready='';
+}
+function renderAll(){renderVibe();renderPlan();renderSongs();renderHome();if(window.farmRefresh)window.farmRefresh()}
+
+/* ---------- login / sync ---------- */
+function showLogin(msg){
+ $('app').hidden=true;$('login').hidden=false;
+ $('loginOnline').hidden=!ONLINE;$('loginDemo').hidden=ONLINE;
+ $('loginMsg').textContent=msg||'';
+}
+function enterApp(){
+ $('login').hidden=true;$('app').hidden=false;
+ applyRole();renderAll();
+ /* online: the device stays locked to its role, no way back to the login screen. demo: a test-only switch. */
+ $('logoutBtn').hidden=ONLINE;$('logoutBtn').textContent='تغییر نقش (فقط برای تست)';
+ const h=location.hash.slice(1);show(SECTIONS.includes(h)?h:'home');
+}
+async function pull(first){
+ if(!ONLINE||!PIN)return;
+ try{
+  const r=await rpc('get_all',{p_pin:PIN});
+  if(!r)throw new Error('bad-pin');
+  ROLE=r.role;const d=r.data||{};
+  if(ROLE==='him'||first){
+    if(d.vibe)vibe=d.vibe;
+    if(d.plan)plan=d.plan;
+    if(d.farm&&window.farmApply)window.farmApply(d.farm);
+  }
+  if(d.visit&&window.farmVisitor)window.farmVisitor(d.visit);
+  if(Array.isArray(d.songs))songs=d.songs;
+  if(ROLE==='her'&&first){ /* first sync: push local data the server doesn't have yet */
+    if(!d.vibe)persist('vibe',vibe);
+    if(!d.plan)persist('plan',plan);
+    if(!d.farm&&window.farmCurrent)persist('farm',window.farmCurrent());
+  }
+  setNet('');
+  if(!$('app').hidden)renderAll();
+  return true;
+ }catch(e){
+  if(String(e.message).includes('bad-pin'))return false;
+  setNet('اتصال برقرار نیست. اینترنت یا VPN رو چک کن.');
+  return null;
+ }
+}
+$('loginBtn').addEventListener('click',async()=>{
+ const v=$('pinIn').value.trim();if(!v)return;
+ $('loginBtn').disabled=true;$('loginMsg').textContent='';
+ PIN=v;const ok=await pull(true);
+ $('loginBtn').disabled=false;
+ if(ok){save('pin',PIN);enterApp()}
+ else{PIN=null;ROLE=null;$('loginMsg').textContent=ok===false?'کد اشتباهه.':'به سرور وصل نشد. اینترنت یا VPN رو چک کن.'}
+});
+$('pinIn').addEventListener('keydown',e=>{if(e.key==='Enter')$('loginBtn').click()});
+document.querySelectorAll('[data-demo]').forEach(b=>b.addEventListener('click',()=>{ROLE=b.dataset.demo;save('demoRole',ROLE);enterApp()}));
+$('logoutBtn').addEventListener('click',()=>{
+ try{localStorage.removeItem('pin');localStorage.removeItem('demoRole')}catch(e){}
+ ROLE=null;PIN=null;location.hash='';showLogin();
+});
+let pc=0;
+setInterval(()=>{pc++;if(!ROLE)return;if(!ONLINE){renderHome();return}if(!$('farm').hidden||pc%3===0)pull()},7000);
+
+/* ---------- FARM GAME ---------- */
+(()=>{
+const TS=16,VW=14,VH=17,MAXE=20,DAY=864e5,HR=36e5,W=44,H=32;
+const CROPS={
+  wheat:{n:'گندم',e:'🌾',days:1,seed:1,sell:5},
+  carrot:{n:'هویج',e:'🥕',days:2,seed:2,sell:9,unlock:25},
+  straw:{n:'توت‌فرنگی',e:'🍓',days:3,seed:4,sell:20,unlock:60},
+  tulip:{n:'لاله',e:'🌷',days:4,seed:8,sell:38,unlock:120}};
+const DECOR={
+  fence:{n:'نرده',price:3,block:true},
+  flower:{n:'باغچه گل',price:6,block:false},
+  bench:{n:'نیمکت',price:18,block:true},
+  lamp:{n:'چراغ',price:22,block:true}};
+const LOOKS={hat:{n:'کلاه حصیری',price:40},bow:{n:'پاپیون',price:30},glasses:{n:'عینک آفتابی',price:35}};
+const VEC={u:[0,-1],d:[0,1],l:[-1,0],r:[1,0]};
+const STEP_MS=240;
+
+/* ----- world ----- */
+const MAP=[];
+(function build(){
+  let seed=7;const rnd=()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+  for(let y=0;y<H;y++)MAP.push(Array(W).fill('.'));
+  const rect=(c,x,y,w,h)=>{for(let j=y;j<y+h;j++)for(let i=x;i<x+w;i++)MAP[j][i]=c};
+  rect('P',6,7,1,12);rect('P',6,18,31,1);rect('P',36,7,1,12);rect('P',29,6,1,13);
+  rect('H',4,4,5,3);MAP[6][6]='D';
+  rect('S',28,4,3,2);
+  rect('B',34,4,5,3);MAP[6][36]='Q';
+  rect('f',12,7,12,9);
+  rect('W',27,21,10,7);[[27,21],[36,21],[27,27],[36,27]].forEach(([x,y])=>MAP[y][x]='.');
+  const keep=[[3,3,8,6],[11,6,14,11],[27,3,5,5],[33,3,7,6],[26,20,12,9],[5,6,3,14],[5,17,33,3]];
+  const inKeep=(x,y)=>keep.some(([a,b,w,h])=>x>=a&&x<a+w&&y>=b&&y<b+h);
+  for(let y=0;y<H;y++)for(let x=0;x<W;x++){
+    const edge=Math.min(x,y,W-1-x,H-1-y);
+    if(edge<2){MAP[y][x]='T';continue}
+    if(MAP[y][x]!=='.'||inKeep(x,y))continue;
+    const p=edge<6?0.28:0.055;
+    if(rnd()<p)MAP[y][x]='T';
+  }
+  [[10,10],[7,8],[8,9],[9,10]].forEach(([x,y])=>{if(MAP[y][x]==='T')MAP[y][x]='.'});
+})();
+const mapAt=(x,y)=>(y<0||y>=H||x<0||x>=W)?'T':MAP[y][x];
+const ROOM=[
+"##############",
+"#.BB..KK...Q.#",
+"#.BB.........#",
+"#............#",
+"#.....TT.....#",
+"#............#",
+"#............#",
+"#............#",
+"#............#",
+"#............#",
+"#............#",
+"######E#######"];
+const RW=14,RH=12;
+
+const cv=$('gc'),ctx=cv.getContext('2d');
+cv.width=VW*TS;cv.height=VH*TS;
+
+/* ----- state ----- */
+function norm(o){o=o||{};const r={
+  v:2,coins:o.coins??10,energy:o.energy??MAXE,sleepUntil:o.sleepUntil||0,
+  inv:Object.assign({wheat:0,carrot:0,straw:0,tulip:0},o.inv||{}),
+  soil:o.soil||{},pos:o.pos||null,
+  unlocked:Object.assign({wheat:1},o.unlocked||{}),
+  items:Object.assign({fence:0,flower:0,bench:0,lamp:0},o.items||{}),
+  decor:o.decor||{},own:Object.assign({hat:0,bow:0,glasses:0},o.own||{}),look:o.look||{}};
+  Object.defineProperty(r,'visit',{value:null,writable:true,enumerable:false});return r}
+const saved=load('farm',null)||{};
+let S=norm(saved.v===2?saved:{coins:saved.coins});
+const store=()=>persist('farm',S);
+const RO=()=>ROLE==='him';
+const fmt=ms=>{const m=Math.max(1,Math.ceil(ms/6e4)),d=Math.floor(m/1440),h=Math.floor(m%1440/60),n=m%60;
+  return [d?fa(d)+' روز':'',h?fa(h)+' ساعت':'',(!d&&n)?fa(n)+' دقیقه':''].filter(Boolean).join(' و ')};
+const grown=c=>Date.now()-c.p+(c.b||0);
+function tick(){
+  if(S.sleepUntil&&Date.now()>=S.sleepUntil){S.sleepUntil=0;S.energy=MAXE;persist('farm',S);if(!RO())say('صبح بخیر ☀️ انرژی‌ت پر شد')}
+}
+const asleep=()=>{tick();return S.sleepUntil>Date.now()};
+
+let tool='hoe',scene='out';
+const P={x:7,y:8,px:7,py:8,anim:1,dir:'u',par:0};
+const cat={x:10,y:10,t:0,hop:0,px:10,py:10,anim:1,dir:'d'};
+const hearts=[];
+const cam={x:0,y:0};
+const curW=()=>scene==='in'?RW:W,curH=()=>scene==='in'?RH:H;
+const tileAt=(x,y)=>scene==='in'?((y<0||y>=RH||x<0||x>=RW)?'#':ROOM[y][x]):mapAt(x,y);
+const decorAt=(x,y)=>scene==='out'?S.decor[x+','+y]:null;
+const blocked=(x,y)=>{
+  const ch=tileAt(x,y);
+  if(scene==='in')return '#BKT'.includes(ch)||ch==='Q';
+  if('THDSWBQ'.includes(ch))return true;
+  const d=decorAt(x,y);if(d&&DECOR[d].block)return true;
+  return cat.x===x&&cat.y===y;
+};
+function spawnPoint(){return scene==='in'?[6,10]:[7,8]}
+function restorePos(){
+  const p=RO()?load('visitPos',null):S.pos;
+  scene=(!RO()&&(S.sleepUntil>Date.now()||(p&&p.scene==='in')))||(RO()&&p&&p.scene==='in')?'in':'out';
+  let x,y,dir;
+  if(p){x=p.x;y=p.y;dir=p.dir||'d'}else{[x,y]=spawnPoint();dir='u'}
+  if(blocked(x,y)||tileAt(x,y)==='E'){[x,y]=spawnPoint()}
+  P.x=P.px=x;P.y=P.py=y;P.anim=1;P.dir=dir;snapCam();
+}
+let posDirty=false,visitT=null;
+function savePos(){
+  if(RO()){save('visitPos',{x:P.x,y:P.y,dir:P.dir,scene});pushVisit();return}
+  S.pos={x:P.x,y:P.y,dir:P.dir,scene};store();
+}
+function pushVisit(){
+  clearTimeout(visitT);
+  visitT=setTimeout(()=>{
+    const v={x:P.x,y:P.y,dir:P.dir,scene,at:Date.now()};
+    if(ONLINE&&PIN)rpc('set_kv',{p_pin:PIN,p_key:'visit',p_value:v}).catch(()=>{});
+    else save('visit',v);
+  },900);
+}
+
+function say(m){$('hMsg').textContent=m}
+function hud(){
+  tick();
+  const sl=S.sleepUntil>Date.now();
+  const who=RO()?'نانا ':'';
+  $('hDay').textContent=sl?'💤 '+who+fmt(S.sleepUntil-Date.now())+' تا بیدار شدن':'⚡ '+who+fa(S.energy)+' از '+fa(MAXE);
+  $('hCoin').textContent='🪙 '+fa(S.coins);
+  $('hEn').style.width=(sl?(1-(S.sleepUntil-Date.now())/(8*HR))*100:S.energy/MAXE*100)+'%';
+  $('hInv').innerHTML=Object.keys(CROPS).filter(k=>S.unlocked[k]||S.inv[k]).map(k=>`<span>${CROPS[k].e} ${fa(S.inv[k])}</span>`).join('');
+}
+function toolList(){
+  const l=['hoe','water'];
+  Object.keys(CROPS).forEach(k=>{if(S.unlocked[k])l.push(k)});
+  Object.keys(DECOR).forEach(k=>{if(S.items[k]>0)l.push(k)});
+  return l;
+}
+function renderTools(){
+  const l=toolList();if(!l.includes(tool))tool='hoe';
+  $('tools').innerHTML=l.map(t=>{
+    let ic,nm,sub='';
+    if(t==='hoe'){ic='⛏️';nm='کلنگ'}else if(t==='water'){ic='💧';nm='آب‌پاش'}
+    else if(CROPS[t]){ic=CROPS[t].e;nm=CROPS[t].n;sub=fa(CROPS[t].seed)+' 🪙'}
+    else{ic={fence:'🚧',flower:'🌸',bench:'🪑',lamp:'💡'}[t];nm=DECOR[t].n;sub='× '+fa(S.items[t])}
+    return `<button class="tool${t===tool?' on':''}" data-t="${t}" aria-label="${nm}">${ic} ${nm}${sub?`<small>${sub}</small>`:''}</button>`}).join('');
+}
+function setTool(t){tool=t;renderTools()}
+$('tools').addEventListener('click',e=>{if(RO())return;const b=e.target.closest('[data-t]');if(b)setTool(b.dataset.t)});
+
+function spend(n){
+  if(S.energy<n){say('انرژی‌ت تموم شده 😴 برو توی خونه و روی تخت بخواب');return false}
+  S.energy-=n;return true;
+}
+function enterHouse(){
+  scene='in';P.x=P.px=6;P.y=P.py=10;P.anim=1;P.dir='u';snapCam();savePos();
+  say(RO()?'توی خونه‌ی نانایی 🏠':S.energy<=0?'انرژی‌ت صفره. برو سمت تخت و بخواب 🛏️':'توی خونه‌ای. تخت بالا سمت چپه 🛏️');
+}
+function exitHouse(){scene='out';P.x=P.px=6;P.y=P.py=7;P.anim=1;P.dir='d';snapCam();savePos();say('')}
+function goSleep(){
+  S.sleepUntil=Date.now()+8*HR;savePos();hud();
+  say(`خوابیدی 😴 ${fmt(8*HR)} دیگه بیدار می‌شی و انرژی‌ت پر می‌شه`);
+}
+function petCat(){
+  cat.t=0;cat.hop=350;
+  for(let i=0;i<3;i++)hearts.push({x:cat.x*TS+4+Math.random()*6,y:cat.y*TS+2,t:-i*180});
+  say(['میو 💕','گربه خرخر می‌کنه','گربه سرش رو بهت می‌مالونه'][Math.floor(Math.random()*3)]);
+}
+function sell(){
+  let tot=0;
+  for(const k in CROPS){tot+=S.inv[k]*CROPS[k].sell;S.inv[k]=0}
+  if(!tot){say('چیزی برای فروش نداری. اول یه چیزی بکار و برداشت کن 🌱');return}
+  S.coins+=tot;say(`همه رو فروختی و ${fa(tot)} سکه گرفتی 🪙`);hud();store();
+}
+function fish(){
+  if(!spend(2))return;
+  if(Math.random()<0.6){const n=6+Math.floor(Math.random()*9);S.coins+=n;say(`یه ماهی گرفتی و فروختی: ${fa(n)} سکه 🐟`)}
+  else say('این بار هیچی نگرفتی 🎣');
+  hud();store();
+}
+function farmAct(x,y){
+  const k=x+','+y;let c=S.soil[k];
+  if(c&&c.c){
+    const cr=CROPS[c.c],left=cr.days*DAY-grown(c);
+    if(left<=0){if(!spend(1))return;S.inv[c.c]++;say(`برداشت کردی: ${cr.e} ${cr.n}`);c.c=null;c.p=0;c.b=0;c.wa=0}
+    else if(tool==='water'){
+      const wait=(c.wa||0)+DAY-Date.now();
+      if(wait>0)say(`تازه آب خورده. ${fmt(wait)} دیگه می‌تونی دوباره آب بدی (${fmt(left)} تا رسیدن)`);
+      else{if(!spend(1))return;c.wa=Date.now();c.b=(c.b||0)+4*HR;say(`آب دادی 💧 چهار ساعت زودتر می‌رسه (${fmt(Math.max(0,left-4*HR))} مونده)`)}
+    }else say(`${cr.e} ${cr.n}: ${fmt(left)} تا رسیدن. روزی یه بار آب بدی زودتر می‌رسه 💧`);
+  }else if(tool==='hoe'){
+    if(c&&c.t)say('این‌جا قبلاً شخم خورده');
+    else{if(!spend(1))return;S.soil[k]={t:1};say('شخم زدی ⛏️')}
+  }else if(tool==='water'){
+    say(c&&c.t?'اول یه بذر بکار، بعد آب بده':'اول باید با کلنگ شخمش بزنی');
+  }else if(CROPS[tool]){
+    const cr=CROPS[tool];
+    if(!c||!c.t)say('اول باید با کلنگ شخمش بزنی');
+    else if(S.coins<cr.seed)say('سکه‌ت کمه. محصول بفروش یا ماهی بگیر');
+    else{if(!spend(1))return;S.coins-=cr.seed;c.c=tool;c.p=Date.now();c.b=0;c.wa=0;say(`${cr.e} ${cr.n} کاشتی. ${fmt(cr.days*DAY)} دیگه می‌رسه`)}
+  }else say('این‌جا زمین کشاورزیه. دکور رو یه جای دیگه بذار.');
+  hud();store();
+}
+function act(){
+  if(!$('shop').hidden)return;
+  if(asleep()&&!RO())return say(`خوابیده. ${fmt(S.sleepUntil-Date.now())} تا بیدار شدن`);
+  const [dx,dy]=VEC[P.dir];const fx=P.x+dx,fy=P.y+dy,ch=tileAt(fx,fy);
+  if(scene==='in'){
+    if(ch==='B')return say(RO()?(S.sleepUntil>Date.now()?'نانا خوابه 😴':'تخت نانا'):goSleep());
+    if(ch==='K')return say('یه قفسه‌ی کتاب 📚');
+    if(ch==='Q')return say('یه گلدون 🪴');
+    if(ch==='T')return say('میز ناهارخوری');
+    return say('برای بیرون رفتن از در پایین برو.');
+  }
+  if(cat.x===fx&&cat.y===fy)return petCat();
+  if(ch==='D')return enterHouse();
+  const d=decorAt(fx,fy);
+  if(d){
+    if(RO())return say('این‌ها مال نانا‌ست');
+    if(tool==='hoe'){delete S.decor[fx+','+fy];S.items[d]++;say(`${DECOR[d].n} رو برداشتی`);renderTools();return store()}
+    return say(`این‌جا ${DECOR[d].n} هست. با کلنگ برش دار.`);
+  }
+  if(ch==='Q')return RO()?say('فروشگاه نانا‌ست 🛍️'):openShop();
+  if(ch==='S')return RO()?say('غرفه‌ی فروش نانا‌ست'):sell();
+  if(ch==='W')return RO()?say('برکه‌ی قشنگیه 🌊'):fish();
+  if(ch==='f')return RO()?say('این مزرعه‌ی نانا‌ست 🌱'):farmAct(fx,fy);
+  if(DECOR[tool]&&!RO()){
+    if(ch!=='.')return say('این‌جا جای دکور نیست. یه جای خالی روی چمن پیدا کن.');
+    if(S.items[tool]<1)return;
+    S.decor[fx+','+fy]=tool;S.items[tool]--;say(`${DECOR[tool].n} گذاشتی`);renderTools();return store();
+  }
+  say('این‌جا کاری نمی‌شه کرد.');
+}
+$('actBtn').addEventListener('click',act);
+
+/* ----- shop ----- */
+let shopTab='seeds';
+function openShop(){$('shop').hidden=false;shopTab='seeds';renderShop();say('')}
+function closeShop(){$('shop').hidden=true}
+function renderShop(){
+  $('shopCoin').textContent='🪙 '+fa(S.coins);
+  document.querySelectorAll('#shop [data-tab]').forEach(b=>b.classList.toggle('on',b.dataset.tab===shopTab));
+  let h='';
+  if(shopTab==='seeds'){
+    h=Object.keys(CROPS).map(k=>{const c=CROPS[k],own=S.unlocked[k];
+      return `<div class="item"><div style="font-size:24px">${c.e}</div><div class="t"><b>${c.n}</b><small>${fa(c.days)} روز تا رسیدن · بذر ${fa(c.seed)} 🪙 · فروش ${fa(c.sell)} 🪙</small></div>${own?'<span class="pill">باز شده</span>':`<button class="btn sm" data-buy="unlock:${k}">باز کردن · ${fa(c.unlock)} 🪙</button>`}</div>`}).join('');
+  }else if(shopTab==='decor'){
+    h=Object.keys(DECOR).map(k=>{const d=DECOR[k];
+      return `<div class="item"><div style="font-size:24px">${{fence:'🚧',flower:'🌸',bench:'🪑',lamp:'💡'}[k]}</div><div class="t"><b>${d.n}</b><small>داری: ${fa(S.items[k])} · روی چمن بذار، با کلنگ برش دار</small></div><button class="btn sm" data-buy="decor:${k}">${fa(d.price)} 🪙</button></div>`}).join('');
+  }else{
+    h=Object.keys(LOOKS).map(k=>{const l=LOOKS[k],own=S.own[k];
+      return `<div class="item"><div style="font-size:24px">${{hat:'👒',bow:'🎀',glasses:'🕶️'}[k]}</div><div class="t"><b>${l.n}</b><small>${own?(S.look[k]?'پوشیده‌ای':'داری'):'ظاهر شخصیتت'}</small></div>${own?`<button class="btn sm ghost" data-buy="wear:${k}">${S.look[k]?'درآر':'بپوش'}</button>`:`<button class="btn sm" data-buy="look:${k}">${fa(l.price)} 🪙</button>`}</div>`}).join('');
+  }
+  $('shopList').innerHTML=h;
+}
+$('shop').addEventListener('click',e=>{
+  if(e.target.id==='shopClose'||e.target.id==='shop'){closeShop();return}
+  const t=e.target.closest('[data-tab]');if(t){shopTab=t.dataset.tab;renderShop();$('shopMsg').textContent='';return}
+  const b=e.target.closest('[data-buy]');if(!b)return;
+  const [type,k]=b.dataset.buy.split(':');const m=$('shopMsg');m.textContent='';
+  const pay=n=>{if(S.coins<n){m.textContent='سکه‌ت کافی نیست.';return false}S.coins-=n;return true};
+  if(type==='unlock'){if(pay(CROPS[k].unlock)){S.unlocked[k]=1;m.textContent=CROPS[k].n+' باز شد. توی نوار ابزار پایین پیداش می‌کنی.'}}
+  if(type==='decor'){if(pay(DECOR[k].price)){S.items[k]++;m.textContent=DECOR[k].n+' خریده شد.'}}
+  if(type==='look'){if(pay(LOOKS[k].price)){S.own[k]=1;S.look[k]=1;m.textContent=LOOKS[k].n+' خریده شد و پوشیدی.'}}
+  if(type==='wear'){S.look[k]=S.look[k]?0:1}
+  hud();renderTools();renderShop();store();
+});
+$('shopClose').addEventListener('click',closeShop);
+
+/* ----- input ----- */
+const held={u:0,d:0,l:0,r:0};
+const KEYMAP={ArrowUp:'u',KeyW:'u',ArrowDown:'d',KeyS:'d',ArrowLeft:'l',KeyA:'l',ArrowRight:'r',KeyD:'r'};
+addEventListener('keydown',e=>{
+  if($('farm').hidden||/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(!$('shop').hidden){if(e.code==='Escape')closeShop();return}
+  const d=KEYMAP[e.code];
+  if(d){held[d]=1;e.preventDefault();return}
+  if(e.code==='Space'||e.code==='Enter'||e.code==='KeyE'){if(!e.repeat)act();e.preventDefault();return}
+  const m=/^Digit([1-9])$/.exec(e.code);if(m&&!RO()){const l=toolList();if(l[m[1]-1])setTool(l[m[1]-1])}
+});
+addEventListener('keyup',e=>{const d=KEYMAP[e.code];if(d)held[d]=0});
+addEventListener('blur',()=>{for(const k in held)held[k]=0});
+document.querySelectorAll('.dpad [data-d]').forEach(b=>{
+  const d=b.dataset.d;
+  b.addEventListener('pointerdown',e=>{e.preventDefault();held[d]=1});
+  ['pointerup','pointerleave','pointercancel'].forEach(ev=>b.addEventListener(ev,()=>{held[d]=0}));
+});
+
+function tryMove(d){
+  if(!RO()&&S.sleepUntil>Date.now())return;
+  if(!$('shop').hidden)return;
+  P.dir=d;if(P.anim<1)return;
+  const [dx,dy]=VEC[d];const nx=P.x+dx,ny=P.y+dy;
+  if(scene==='in'&&tileAt(nx,ny)==='E'){exitHouse();return}
+  if(blocked(nx,ny))return;
+  P.px=P.x;P.py=P.y;P.x=nx;P.y=ny;P.anim=0;P.par^=1;posDirty=true;
+}
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function camTarget(){
+  if(scene==='in')return[0,-(VH-RH)*TS/2];
+  const a=P.anim,x=(P.px+(P.x-P.px)*a)*TS+8,y=(P.py+(P.y-P.py)*a)*TS+8;
+  return[clamp(x-VW*TS/2,0,W*TS-VW*TS),clamp(y-VH*TS/2,0,H*TS-VH*TS)];
+}
+function snapCam(){const[x,y]=camTarget();cam.x=x;cam.y=y}
+let tickAt=0,visitAt=0;
+function update(dt,now){
+  if(now-tickAt>1000){tickAt=now;const was=S.sleepUntil;tick();if(was&&!S.sleepUntil)hud()}
+  if(!ONLINE&&ROLE==='her'&&now-visitAt>1500){visitAt=now;S.visit=load('visit',null)}
+  if(RO()&&now-visitAt>45000){visitAt=now;pushVisit()}
+  if(P.anim<1)P.anim=Math.min(1,P.anim+dt/STEP_MS);
+  if(P.anim>=1){const d=['u','d','l','r'].find(k=>held[k]);if(d)tryMove(d)}
+  if(posDirty&&P.anim>=1&&!['u','d','l','r'].some(k=>held[k])){posDirty=false;savePos()}
+  cat.t+=dt;if(cat.hop>0)cat.hop=Math.max(0,cat.hop-dt);
+  if(cat.anim<1)cat.anim=Math.min(1,cat.anim+dt/420);
+  if(cat.t>1500&&cat.anim>=1){cat.t=0;
+    if(Math.random()<0.55){
+      const dd=['u','d','l','r'][Math.floor(Math.random()*4)],v=VEC[dd];
+      const nx=cat.x+v[0],ny=cat.y+v[1],ch=mapAt(nx,ny);
+      const dc=S.decor[nx+','+ny];
+      const free=!'THDSWBQ'.includes(ch)&&!(dc&&DECOR[dc].block)&&!(scene==='out'&&P.x===nx&&P.y===ny)&&!(scene==='out'&&P.px===nx&&P.py===ny&&P.anim<1);
+      if(free){cat.px=cat.x;cat.py=cat.y;cat.x=nx;cat.y=ny;cat.anim=0;cat.dir=dd}
+    }}
+  for(let i=hearts.length-1;i>=0;i--){hearts[i].t+=dt;if(hearts[i].t>1300)hearts.splice(i,1)}
+  const[tx,ty]=camTarget();const k=Math.min(1,dt/110);cam.x+=(tx-cam.x)*k;cam.y+=(ty-cam.y)*k;
+}
+
+/* ----- drawing ----- */
+const R=(x,y,w,h,c)=>{ctx.fillStyle=c;ctx.fillRect(x,y,w,h)};
+const Hh=(x,y)=>(((x*73856093)^(y*19349663))>>>0);
+const OUT='#4a2f3f';
+function nightAlpha(){
+  const d=new Date(),hr=d.getHours()+d.getMinutes()/60;
+  return hr>=5&&hr<18?0:hr>=18&&hr<21?(hr-18)/3*.42:(hr>=21||hr<4)?.42:(5-hr)*.42;
+}
+const isNight=()=>nightAlpha()>0.15;
+
+function ground(t,x0,y0,x1,y1){
+  for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){
+    const ch=mapAt(x,y),px=x*TS,py=y*TS,h=Hh(x,y);
+    if(ch==='W'){
+      R(px,py,TS,TS,(x+y)%2?'#8ed4fb':'#86cdf6');
+      const ph=(Math.floor(t/600)+x+y*2)%3;
+      R(px+3+ph*3,py+5,4,1,'#cdeeff');R(px+9-ph*2,py+11,4,1,'#cdeeff');
+      if(h%9===0){R(px+5,py+8,4,3,'#58b86a');R(px+6,py+8,2,1,'#7bd98a')}
+      continue;
+    }
+    if(ch==='P'){
+      R(px,py,TS,TS,'#f2dfca');
+      if(h%3===0)R(px+h%12+1,py+(h>>4)%12+2,3,2,'#e3c7a8');
+      if(h%5===0)R(px+(h>>3)%12+1,py+(h>>5)%12+1,2,1,'#fff3e2');
+      continue;
+    }
+    const f=ch==='f';
+    R(px,py,TS,TS,f?((x+y)%2?'#cdeaa4':'#c4e49a'):((x+y)%2?'#bfe8ae':'#b5e1a3'));
+    if(h%5===0)R(px+h%11+2,py+(h>>3)%11+3,1,3,'#9fd18c');
+    if(h%7===0)R(px+(h>>4)%10+3,py+(h>>6)%10+4,3,1,'#a6d994');
+    if(h%13===0&&!f){const c=['#ffffff','#ff9fc3','#8fd0ff'][h%3];const fx=px+(h>>4)%11+2,fy=py+(h>>6)%11+2;R(fx,fy,2,2,c);R(fx,fy,1,1,'#ffe36e')}
+    if(!f){
+      if(mapAt(x,y-1)==='W')R(px,py,TS,3,'#f3e3b8');
+      if(mapAt(x,y+1)==='W')R(px,py+TS-3,TS,3,'#f3e3b8');
+      if(mapAt(x-1,y)==='W')R(px,py,3,TS,'#f3e3b8');
+      if(mapAt(x+1,y)==='W')R(px+TS-3,py,3,TS,'#f3e3b8');
+    }
+  }
+}
+function crop(px,py,c,t){
+  const cr=CROPS[c.c],f=Math.min(1,grown(c)/(cr.days*DAY)),mature=f>=1;
+  if(f<0.12){R(px+6,py+9,2,2,'#f1dfbd');R(px+9,py+11,2,2,'#f1dfbd');return}
+  const h=3+Math.round(f*6);
+  if(c.c==='wheat'){
+    for(let i=0;i<3;i++){const x=px+4+i*3;R(x,py+13-h,1,h,mature?'#d9a93a':'#58b86a');if(mature){R(x-1,py+13-h-2,3,3,'#f2cd5b');R(x,py+13-h-3,1,1,'#fff2a8')}}
+    return;
+  }
+  R(px+7,py+13-h,2,h,'#43a85a');
+  R(px+4,py+13-h+2,3,2,'#5ccf72');R(px+9,py+13-h+3,3,2,'#5ccf72');
+  if(!mature)return;
+  if(c.c==='carrot'){R(px+5,py+11,6,3,'#ff9a3c');R(px+6,py+10,4,1,'#ffb36a')}
+  else if(c.c==='straw'){R(px+4,py+7,3,3,'#ff4f6d');R(px+9,py+8,3,3,'#ff4f6d');R(px+6,py+4,3,3,'#ff4f6d');R(px+5,py+7,1,1,'#fff');R(px+10,py+8,1,1,'#fff')}
+  else{R(px+4,py+2,8,6,'#ff7fae');R(px+6,py+1,4,2,'#ff9cc2');R(px+7,py+4,2,2,'#fff')}
+  if(Math.floor(t/400)%2)R(px+12,py+2,1,1,'#fff');
+}
+function fields(t,x0,y0,x1,y1){
+  for(const k in S.soil){const c=S.soil[k];if(!c.t)continue;
+    const [x,y]=k.split(',').map(Number);if(x<x0||x>x1||y<y0||y>y1)continue;
+    const px=x*TS,py=y*TS,wet=c.c&&c.wa&&Date.now()-c.wa<DAY;
+    R(px+1,py+1,14,14,wet?'#8f5e3e':'#c68c5f');
+    R(px+3,py+5,10,1,wet?'#7a4e32':'#b57a50');R(px+3,py+10,10,1,wet?'#7a4e32':'#b57a50');
+    if(c.c)crop(px,py,c,t);
+  }
+}
+function house(night){
+  const ox=4*TS,oy=4*TS-8,w=5*TS;
+  R(ox+2,oy+54,w-2,3,'#00000014');
+  R(ox+2,oy+22,w-4,34,'#fffaf6');R(ox+2,oy+50,w-4,6,'#ffe3ee');
+  R(ox+54,oy-6,8,14,'#d9cfe0');R(ox+53,oy-7,10,2,'#c4b8cc');
+  [[22,36],[16,48],[10,60],[4,72],[-2,84]].forEach(([o,ww],i)=>{
+    R(ox+o,oy+i*4,ww,4,i%2?'#ff7fae':'#ff8fb8');R(ox+o,oy+i*4,ww,1,'#ffb3cf')});
+  R(ox-2,oy+20,w+4,2,'#e8719f');
+  [10,60].forEach(wx=>{R(ox+wx-1,oy+28,14,13,'#ffffff');R(ox+wx,oy+29,12,11,night?'#ffd56b':'#5fb4f0');R(ox+wx+5,oy+29,2,11,'#fff');R(ox+wx,oy+34,12,2,'#fff')});
+  const dx=6*TS;R(dx-1,oy+37,TS+2,19,'#ffffff');R(dx,oy+38,TS,18,'#7cc4f5');R(dx+11,oy+48,2,2,'#fff');R(dx+2,oy+40,5,6,'#a9dcfa');R(dx+9,oy+40,5,6,'#a9dcfa');
+  R(ox+6,oy+56,10,3,'#ff9fc3');R(ox+8,oy+54,4,3,'#ff6f9d');R(ox+w-20,oy+56,10,3,'#fff');R(ox+w-18,oy+54,4,3,'#ffd0e0');
+}
+function stall(){
+  const ox=28*TS,oy=4*TS;
+  R(ox,oy+14,48,18,'#e9bf8f');R(ox,oy+14,48,3,'#cf9f6f');
+  R(ox+2,oy+2,2,14,'#c79a6b');R(ox+44,oy+2,2,14,'#c79a6b');
+  for(let i=0;i<12;i++){const c=i%2?'#ffffff':'#7cc4f5';R(ox+i*4,oy,4,10,c);R(ox+i*4,oy+10,4,3,c)}
+  R(ox+8,oy+12,4,2,'#f2cd5b');R(ox+20,oy+12,4,2,'#ff9a3c');R(ox+34,oy+12,4,2,'#ff7fae');
+  R(ox+12,oy+20,24,8,'#ffffff');R(ox+22,oy+22,4,4,'#ffcf40');
+}
+function shopBuilding(night){
+  const ox=34*TS,oy=4*TS-8,w=5*TS;
+  R(ox+2,oy+54,w-2,3,'#00000014');
+  R(ox+2,oy+22,w-4,34,'#fffaf6');R(ox+2,oy+50,w-4,6,'#dff1ff');
+  for(let i=0;i<10;i++){const c=i%2?'#ffffff':'#7cc4f5';R(ox+i*8,oy+14,8,12,c);R(ox+i*8,oy+26,8,4,c)}
+  R(ox-2,oy+4,w+4,12,'#5fb4f0');R(ox-2,oy+4,w+4,2,'#8fd0ff');R(ox+4,oy,w-8,6,'#7cc4f5');
+  R(ox+22,oy+6,36,8,'#ffffff');R(ox+24,oy+8,32,4,'#ffe3ee');R(ox+37,oy+8,6,4,'#ffcf40');
+  [8,62].forEach(wx=>{R(ox+wx-1,oy+34,14,15,'#ffffff');R(ox+wx,oy+35,12,13,night?'#ffd56b':'#bfe6ff');R(ox+wx+5,oy+35,2,13,'#fff')});
+  const dx=36*TS;R(dx-1,oy+37,TS+2,19,'#ffffff');R(dx,oy+38,TS,18,'#ff9fc3');R(dx+11,oy+48,2,2,'#fff');R(dx+3,oy+41,10,6,'#ffd0e0');
+}
+function tree(px,py,x,y,t){
+  const sw=Math.round(Math.sin(t/900+x*1.7+y)*0.7);
+  R(px+6,py+8,4,8,'#8a5a44');R(px+9,py+8,1,8,'#744733');
+  R(px+2+sw,py-6,12,3,'#ffb3cf');R(px+sw,py-3,16,8,'#ffb3cf');R(px+2+sw,py+5,12,2,'#ffb3cf');
+  R(px+3+sw,py-4,4,2,'#ffd6e6');R(px+10+sw,py,3,2,'#ffd6e6');R(px+2+sw,py+3,5,2,'#ff94bb');R(px+9+sw,py+4,4,2,'#ff94bb');
+  R(px+5+sw,py-1,2,1,'#ffe9f1');
+}
+function decorSprite(type,px,py,t){
+  if(type==='fence'){R(px+1,py+6,14,2,'#fff7ee');R(px+1,py+11,14,2,'#fff7ee');[2,7,12].forEach(o=>{R(px+o,py+3,3,11,'#f1e2cf');R(px+o,py+3,3,1,'#fff')});R(px+1,py+14,14,1,'#00000014')}
+  else if(type==='flower'){R(px+1,py+4,14,11,'#9a6a46');[[3,6,'#ff7fae'],[8,5,'#ffffff'],[12,7,'#8fd0ff'],[5,10,'#ffe36e'],[10,11,'#ff9fc3']].forEach(([a,b,c])=>{R(px+a,py+b+2,1,4,'#43a85a');R(px+a-1,py+b,3,3,c);R(px+a,py+b+1,1,1,'#ffe36e')})}
+  else if(type==='bench'){R(px,py+4,16,4,'#d9a273');R(px,py+4,16,1,'#ecc093');R(px+1,py+9,14,3,'#c78c5e');R(px+1,py+12,2,3,'#8a5a44');R(px+13,py+12,2,3,'#8a5a44')}
+  else{R(px+7,py+4,2,11,'#4a4f66');R(px+4,py+1,8,4,'#4a4f66');R(px+5,py+2,6,2,isNight()?'#fff2a8':'#ffe9a8')}
+}
+function catSprite(px,py,moving,t,dir){
+  const b=moving?Math.floor(t/110)%2:0,tail=Math.round(Math.sin(t/260)*1.2);
+  R(px+3,py+15,10,1,'#00000018');
+  R(px+3,py+9-b,9,5,'#ffffff');R(px+3,py+9-b,9,1,'#f4f4f4');R(px+5,py+9-b,3,3,'#f0a35a');R(px+9,py+11-b,2,2,'#c9c9c9');
+  R(px+10,py+6-b,5,5,'#ffffff');R(px+10,py+5-b,1,2,'#f0a35a');R(px+14,py+5-b,1,2,'#f0a35a');R(px+13,py+8-b,1,1,'#2b2b2b');R(px+11,py+8-b,1,1,'#2b2b2b');R(px+12,py+9-b,1,1,'#ff9fb0');
+  R(px+1,py+6+tail,2,6,'#f0a35a');R(px+4,py+14,2,1,'#e6e6e6');R(px+9,py+14,2,1,'#e6e6e6');
+}
+function char(px,py,dir,sw,par,gender,look,bob){
+  const girl=gender==='her',b=py+16-bob,skin='#ffd9b8';
+  const hair=girl?'#8a4f3a':'#4b2f22',hairHi=girl?'#aa6a52':'#6b4533';
+  const shirt=girl?'#fff4f8':'#5fb4f0',shirtSh=girl?'#ffd6e4':'#3f94d6';
+  const bottom=girl?'#ff8fb8':'#3f5f9a',shoe=girl?'#c46a8a':'#4a3a35';
+  const parts=[],add=(x,y,w,h,c)=>parts.push([x,y,w,h,c]);
+  const s=Math.round(sw*2),o=par?s:-s;
+  R(px+3,py+14,10,2,'#00000022');
+  if(dir==='l'||dir==='r'){
+    const f=dir==='r'?1:-1;
+    add(px+6+f*o,b-6,3,5,girl?skin:bottom);add(px+6+f*o,b-2,3,2,shoe);
+    add(px+7-f*o,b-6,3,5,girl?skin:bottom);add(px+7-f*o,b-2,3,2,shoe);
+    if(girl)add(px+4,b-9,8,4,bottom);
+    add(px+5,b-13,6,6,shirt);add(px+5,b-8,6,1,shirtSh);
+    add(px+7-f*o,b-12,3,5,shirt);add(px+7-f*o,b-8,3,2,skin);
+    add(px+4,b-20,8,8,skin);
+    add(f>0?px+3:px+8,b-21,f>0?6:5,8,hair);add(px+4,b-21,8,3,hair);add(px+5,b-21,3,1,hairHi);
+    if(girl){add(f>0?px+1:px+11,b-17,3,8,hair);add(f>0?px+2:px+11,b-17,2,2,'#ff6f9d')}
+    add(f>0?px+10:px+5,b-15,1,2,'#2b2b2b');
+    if(girl)add(f>0?px+9:px+6,b-13,1,1,'#ff9fb4');
+  }else{
+    const lh=par?5-s:5,rh=par?5:5-s;
+    add(px+5,b-6,3,lh,girl?skin:bottom);add(px+8,b-6,3,rh,girl?skin:bottom);
+    add(px+5,b-6+lh-2,3,2,shoe);add(px+8,b-6+rh-2,3,2,shoe);
+    if(girl)add(px+4,b-9,8,4,bottom);
+    add(px+4,b-13,8,7,shirt);add(px+4,b-8,8,1,shirtSh);if(!girl)add(px+4,b-7,8,2,bottom);
+    add(px+2,b-12+(par?s:-s),2,5,shirt);add(px+2,b-8+(par?s:-s),2,2,skin);
+    add(px+12,b-12+(par?-s:s),2,5,shirt);add(px+12,b-8+(par?-s:s),2,2,skin);
+    add(px+4,b-20,8,8,skin);
+    if(dir==='u'){add(px+3,b-21,10,10,hair);if(girl)add(px+3,b-13,10,4,hair);add(px+5,b-21,3,1,hairHi)}
+    else{
+      add(px+3,b-21,10,4,hair);add(px+3,b-18,2,5,hair);add(px+11,b-18,2,5,hair);add(px+5,b-21,3,1,hairHi);
+      if(girl){add(px+2,b-15,2,6,hair);add(px+12,b-15,2,6,hair)}
+      else add(px+4,b-18,8,1,hair);
+      add(px+6,b-14,1,2,'#2b2b2b');add(px+9,b-14,1,2,'#2b2b2b');
+      if(girl){add(px+5,b-12,1,1,'#ff9fb4');add(px+10,b-12,1,1,'#ff9fb4')}
+    }
+  }
+  parts.forEach(p=>R(p[0]-1,p[1]-1,p[2]+2,p[3]+2,OUT));
+  parts.forEach(p=>R(p[0],p[1],p[2],p[3],p[4]));
+  if(look){
+    if(look.glasses&&dir!=='u')R(px+5,b-15,6,2,'#2b2b2b'),R(px+6,b-15,1,1,'#8fd0ff'),R(px+9,b-15,1,1,'#8fd0ff');
+    if(look.bow)R(dir==='l'?px+3:px+10,b-21,4,3,'#ff4f8b'),R(dir==='l'?px+4:px+11,b-20,1,1,'#ffb3c6');
+    if(look.hat){R(px+1,b-22,14,3,'#8a6a3a');R(px+2,b-22,12,2,'#e8c27a');R(px+4,b-26,8,5,'#8a6a3a');R(px+5,b-26,6,4,'#f2d28f');R(px+4,b-23,8,1,'#ff8fb8')}
+  }
+}
+const HEART=[".XX.XX.","XXXXXXX","XXXXXXX",".XXXXX.","..XXX..","...X..."];
+function heart(px,py,a){
+  ctx.globalAlpha=a;
+  HEART.forEach((row,j)=>{for(let i=0;i<7;i++)if(row[i]==='X')R(px+i,py+j,1,1,'#ff4f7b')});
+  R(px+1,py+1,1,1,'#ffb3c6');ctx.globalAlpha=1;
+}
+const chars={};
+function drawChar(e,gender,t,look){
+  const moving=e.anim<1,a=e.anim;
+  const x=(e.px+(e.x-e.px)*a)*TS,y=(e.py+(e.y-e.py)*a)*TS;
+  const sw=moving?Math.sin(a*Math.PI):0;
+  char(Math.round(x),Math.round(y),e.dir,sw,e.par,gender,look,moving&&sw>0.7?1:0);
+}
+function butterflies(t){
+  [[16,6,'#ff9fc3'],[22,9,'#8fd0ff'],[14,13,'#ffffff']].forEach(([bx,by,c],i)=>{
+    const x=bx*TS+Math.sin(t/900+i*2)*30+20,y=by*TS+Math.cos(t/700+i)*14,f=Math.floor(t/140+i)%2;
+    R(Math.round(x),Math.round(y),2,2,c);R(Math.round(x)-1+f,Math.round(y)-1,1,1,c);R(Math.round(x)+2-f,Math.round(y)-1,1,1,c)});
+}
+function drawOutside(t){
+  const x0=Math.max(0,Math.floor(cam.x/TS)-1),y0=Math.max(0,Math.floor(cam.y/TS)-1),x1=Math.min(W-1,x0+VW+2),y1=Math.min(H-1,y0+VH+3);
+  ctx.save();ctx.translate(-Math.round(cam.x),-Math.round(cam.y));
+  ground(t,x0,y0,x1,y1);fields(t,x0,y0,x1,y1);
+  const night=isNight();
+  house(night);stall();shopBuilding(night);
+  if(!asleepView()||true){const [dx,dy]=VEC[P.dir],fx=P.x+dx,fy=P.y+dy;
+    if(P.anim>=1&&mapAt(fx,fy)!=='T'){ctx.strokeStyle='#f2578a';ctx.lineWidth=1;ctx.strokeRect(fx*TS+.5,fy*TS+.5,TS-1,TS-1)}}
+  const ents=[];
+  for(let y=y0;y<=Math.min(H-1,y1+2);y++)for(let x=x0;x<=x1;x++){
+    if(MAP[y][x]==='T')ents.push([y*TS,()=>tree(x*TS,y*TS,x,y,t)]);
+    const d=S.decor[x+','+y];if(d)ents.push([y*TS+(d==='flower'?-4:0),()=>decorSprite(d,x*TS,y*TS,t)]);
+  }
+  const hop=cat.hop>0?-Math.round(Math.sin(cat.hop/350*Math.PI)*3):0;
+  const ca=cat.anim,cx=(cat.px+(cat.x-cat.px)*ca)*TS,cy=(cat.py+(cat.y-cat.py)*ca)*TS;
+  ents.push([cy+8,()=>catSprite(Math.round(cx),Math.round(cy)+hop,ca<1,t,cat.dir)]);
+  /* self */
+  const self=ROLE==='him'?'him':'her';
+  const lookSelf=self==='her'?S.look:null;
+  ents.push([(P.py+(P.y-P.py)*P.anim)*TS+8,()=>drawChar(P,self,t,lookSelf)]);
+  /* the other person */
+  if(ROLE==='him'){
+    if(!(S.sleepUntil>Date.now())&&S.pos&&S.pos.scene==='out')ents.push([S.pos.y*TS+8,()=>char(S.pos.x*TS,S.pos.y*TS,S.pos.dir||'d',0,0,'her',S.look,0)]);
+  }else if(S.visit&&S.visit.scene==='out'&&Date.now()-S.visit.at<150000){
+    ents.push([S.visit.y*TS+8,()=>char(S.visit.x*TS,S.visit.y*TS,S.visit.dir||'d',0,0,'him',null,0)]);
+  }
+  ents.sort((p,q)=>p[0]-q[0]).forEach(e=>e[1]());
+  butterflies(t);
+  hearts.forEach(h=>{if(h.t>=0)heart(Math.round(h.x),Math.round(h.y-h.t/1000*20),Math.max(0,1-h.t/1300))});
+  ctx.restore();
+  const dark=nightAlpha();
+  if(dark>0){
+    ctx.fillStyle=`rgba(40,60,130,${dark})`;ctx.fillRect(0,0,cv.width,cv.height);
+    ctx.save();ctx.translate(-Math.round(cam.x),-Math.round(cam.y));
+    ctx.globalCompositeOperation='lighter';
+    for(const k in S.decor){if(S.decor[k]!=='lamp')continue;const [x,y]=k.split(',').map(Number);
+      const g=ctx.createRadialGradient(x*TS+8,y*TS+4,2,x*TS+8,y*TS+4,36);g.addColorStop(0,'rgba(255,220,120,.55)');g.addColorStop(1,'rgba(255,220,120,0)');
+      ctx.fillStyle=g;ctx.fillRect(x*TS-30,y*TS-34,76,76)}
+    ctx.restore();
+  }
+}
+const asleepView=()=>S.sleepUntil>Date.now();
+function drawRoom(t){
+  const oy=-Math.round(cam.y)*0;const off=(VH-RH)*TS/2;
+  R(0,0,cv.width,cv.height,'#3a2a3f');
+  ctx.save();ctx.translate(0,off);
+  const sl=S.sleepUntil>Date.now(),night=isNight();
+  for(let y=0;y<RH;y++)for(let x=0;x<RW;x++){
+    const ch=ROOM[y][x],px=x*TS,py=y*TS;
+    if(ch==='#'){R(px,py,TS,TS,'#ffd9e6');R(px,py+TS-2,TS,2,'#f0b5c9');if(y===0)R(px,py,TS,3,'#ffc2d8')}
+    else if(ch==='E'){R(px,py,TS,TS,'#efd0b3');R(px+1,py+2,14,12,'#7cc4f5');R(px+3,py+4,10,8,'#a9dcfa')}
+    else R(px,py,TS,TS,(x+y)%2?'#f6dfc8':'#f0d5ba');
+  }
+  R(2*TS+8,5*TS-2,10*TS-16,6*TS+4,'#ff9fc0');R(2*TS+11,5*TS+1,10*TS-22,6*TS-2,'#ffd3e3');
+  for(let i=0;i<4;i++)R(2*TS+16+i*28,5*TS+14,12,12,'#fff0f6');
+  R(9*TS+2,3,28,13,night?'#243a6b':'#8fd6ff');R(9*TS+15,3,2,13,'#fff');R(9*TS+2,8,28,2,'#fff');
+  if(night){R(9*TS+6,5,1,1,'#fff');R(9*TS+22,11,1,1,'#fff');R(9*TS+26,6,1,1,'#fff')}
+  R(2*TS+2,3,28,13,night?'#243a6b':'#8fd6ff');R(2*TS+15,3,2,13,'#fff');R(2*TS+2,8,28,2,'#fff');
+  R(6*TS,TS-4,32,TS+4,'#a56f4f');for(let i=0;i<4;i++)R(6*TS+2+i*7,TS-2,5,10,['#ff8fb8','#8fd0ff','#ffe36e','#a9e3a0'][i]);R(6*TS+2,TS+9,28,2,'#8a5a44');
+  R(11*TS+4,TS+7,8,6,'#e6a07a');R(11*TS+3,TS,4,7,'#4caf62');R(11*TS+8,TS-2,4,9,'#5ccf72');
+  R(6*TS+2,4*TS+4,28,12,'#c98f6b');R(6*TS+2,4*TS+4,28,2,'#ddab86');R(6*TS+4,4*TS+16,3,4,'#a56f4f');R(6*TS+25,4*TS+16,3,4,'#a56f4f');R(6*TS+10,4*TS,12,5,'#ffe9f1');R(6*TS+14,4*TS-2,4,3,'#ff8fb8');
+  /* bed */
+  R(TS,TS-2,32,6,'#a56f4f');R(TS,TS+2,32,30,'#c98f6b');R(TS+2,TS+6,28,24,'#ffffff');R(TS+4,TS+8,11,6,'#ffe9f1');
+  if(sl){R(TS+5,TS+10,8,6,'#ffd9b8');R(TS+4,TS+9,10,3,'#8a4f3a');R(TS+3,TS+9,2,8,'#8a4f3a');R(TS+6,TS+13,2,1,'#2b2b2b');R(TS+10,TS+13,2,1,'#2b2b2b');R(TS+12,TS+9,3,2,'#ff4f8b')}
+  R(TS+2,TS+16,28,14,'#ff9cbc');R(TS+2,TS+16,28,2,'#ffb8d0');R(TS+2,TS+22,28,2,'#ffb8d0');
+  if(sl){
+    ctx.fillStyle='#ffffff';ctx.font='bold 9px sans-serif';
+    for(let i=0;i<3;i++){const ph=((t/1200)+i/3)%1;ctx.globalAlpha=1-ph;ctx.fillText('z',TS*2.4+i*5+ph*6,TS*1.6-ph*18-i*2)}
+    ctx.globalAlpha=1;
+  }
+  const ents=[];
+  const self=ROLE==='him'?'him':'her';
+  if(!(self==='her'&&sl))ents.push([P.y*TS+8,()=>drawChar(P,self,t,self==='her'?S.look:null)]);
+  if(ROLE==='her'&&S.visit&&S.visit.scene==='in'&&Date.now()-S.visit.at<150000)ents.push([S.visit.y*TS+8,()=>char(S.visit.x*TS,S.visit.y*TS,S.visit.dir||'d',0,0,'him',null,0)]);
+  if(ROLE==='him'&&!sl&&S.pos&&S.pos.scene==='in')ents.push([S.pos.y*TS+8,()=>char(S.pos.x*TS,S.pos.y*TS,S.pos.dir||'d',0,0,'her',S.look,0)]);
+  ents.sort((p,q)=>p[0]-q[0]).forEach(e=>e[1]());
+  if(!(self==='her'&&sl)){const [dx,dy]=VEC[P.dir],fx=P.x+dx,fy=P.y+dy;
+    if(P.anim>=1&&ROOM[fy]&&ROOM[fy][fx]&&ROOM[fy][fx]!=='#'){ctx.strokeStyle='#f2578a';ctx.lineWidth=1;ctx.strokeRect(fx*TS+.5,fy*TS+.5,TS-1,TS-1)}}
+  ctx.restore();
+  if(sl){ctx.fillStyle='rgba(20,30,90,.38)';ctx.fillRect(0,0,cv.width,cv.height)}
+}
+function draw(t){scene==='in'?drawRoom(t):drawOutside(t)}
+
+let last=performance.now();
+function frame(now){
+  const dt=Math.min(50,now-last);last=now;
+  if(!$('farm').hidden){update(dt,now);draw(now)}
+  requestAnimationFrame(frame);
+}
+function guide(){
+  if(RO())return say('تو مزرعه‌ی نانایی. بگرد، گربه رو ناز کن و اگه خوابه، برو توی خونه ببینش 😴');
+  say(scene==='in'&&S.sleepUntil>Date.now()?`خوابیده 😴 ${fmt(S.sleepUntil-Date.now())} تا بیدار شدن`:'اول با کلنگ زمین رو شخم بزن، بعد بذر گندم بکار. فروشگاه بالا سمت راسته 🛍️');
+}
+renderTools();restorePos();hud();setInterval(hud,30000);
+window.farmCurrent=()=>S;
+window.farmSleepText=()=>S.sleepUntil>Date.now()?fmt(S.sleepUntil-Date.now()):'';
+window.farmApply=d=>{
+  if(d){const keepVisit=S.visit;S=norm(d.v===2?d:{coins:d.coins});S.visit=keepVisit;save('farm',S)}
+  if(!RO()){restorePos()}
+  renderTools();hud();
+};
+window.farmVisitor=v=>{S.visit=v};
+window.farmRefresh=()=>{
+  restorePos();renderTools();hud();guide();
+  if(RO())pushVisit();
+};
+requestAnimationFrame(frame);
+})();
+
+/* ---------- boot ---------- */
+(async()=>{
+ if(ONLINE){
+  PIN=load('pin',null);
+  if(PIN){const ok=await pull(true);if(ok){enterApp();return}if(ok===false){PIN=null;showLogin('کد ذخیره‌شده دیگه معتبر نیست.');return}showLogin('به سرور وصل نشد. اینترنت یا VPN رو چک کن.');return}
+  showLogin();
+ }else{
+  const r=load('demoRole',null);
+  if(r==='her'||r==='him'){ROLE=r;enterApp()}else showLogin();
+ }
+})();
+</script>
+</body>
+</html>
